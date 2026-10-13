@@ -4,6 +4,11 @@
   "accessTokenLifespan": 300,
   "clientScopes": [
     {
+      "name": "offline_access",
+      "protocol": "openid-connect",
+      "attributes": { "include.in.token.scope": "true", "display.on.consent.screen": "false" }
+    },
+    {
       "name": "basic",
       "protocol": "openid-connect",
       "attributes": { "include.in.token.scope": "false" },
@@ -55,19 +60,34 @@
   ],
   "clients": [
     {
+      "clientId": "spa",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:4200/*"],
+      "webOrigins": ["http://localhost:4200"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4200/*"
+      },
+      "defaultClientScopes": ["basic", "profile", "api-access"],
+      "optionalClientScopes": ["offline_access"]
+    },
+    {
       "clientId": "api-docs",
       "enabled": true,
       "publicClient": true,
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
-      "redirectUris": ["https://localhost:5001/*"],
-      "webOrigins": ["https://localhost:5001"],
+      "redirectUris": ["https://localhost:5001/*", "https://localhost:5101/*"],
+      "webOrigins": ["https://localhost:5001", "https://localhost:5101"],
       "attributes": { "pkce.code.challenge.method": "S256" },
       "defaultClientScopes": ["basic", "profile", "api-access"]
     }
   ],
   "roles": {
-    "realm": [{ "name": "user" }]
+    "realm": [{ "name": "user" }, { "name": "offline_access" }]
   },
   "users": [
     {
@@ -78,7 +98,7 @@
       "firstName": "Alice",
       "lastName": "Test",
       "credentials": [{ "type": "password", "value": "alice", "temporary": false }],
-      "realmRoles": ["user"]
+      "realmRoles": ["user", "offline_access"]
     }
   ]
 }

@@ -1,0 +1,18 @@
+<main>
+  <h1>MSAL Angular SPA</h1>
+
+  @if (account(); as a) {
+    <p>Signed in as <strong id="user">{{ a.username }}</strong></p>
+    <button id="call-api" (click)="callApi()">Call /me</button>
+    <button id="logout" (click)="logout()">Sign out</button>
+  } @else {
+    <button id="login" (click)="login()">Sign in</button>
+  }
+
+  @if (error(); as e) {
+    <p id="error" class="error">{{ e }}</p>
+  }
+  @if (result(); as r) {
+    <pre id="result">{{ r | json }}</pre>
+  }
+</main>

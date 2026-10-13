@@ -1,0 +1,9 @@
+{
+  "authority": "https://localhost:8443/realms/local",
+  "clientId": "spa",
+  "knownAuthorities": ["localhost:8443"],
+  "protocolMode": "OIDC",
+  "redirectUri": "http://localhost:4200",
+  "scopes": ["openid", "profile"],
+  "apiBaseUrl": "https://localhost:5101"
+}

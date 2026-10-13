@@ -4,6 +4,7 @@ services:
     command: start-dev --import-realm
     volumes:
       - ./keycloak/local-realm.json:/opt/keycloak/data/import/local-realm.json:ro
+      - ./keycloak/certs:/opt/keycloak/certs:ro
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
@@ -11,8 +12,12 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
+      # MSAL.js refuses non-https authorities, so Keycloak must serve TLS.
+      KC_HOSTNAME: https://localhost:8443
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/localhost.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/localhost.key
     ports:
-      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8443:8443"
     depends_on:
       keycloak-db:
         condition: service_healthy
