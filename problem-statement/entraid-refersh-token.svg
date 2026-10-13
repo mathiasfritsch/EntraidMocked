@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1150" viewBox="0 0 1500 1150" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="1500" height="1150" fill="white"/>
+  <text x="750" y="40" text-anchor="middle" font-size="26" font-weight="700" fill="#202124">Entra ID mock: access-token and refresh-token test run</text>
+
+  <rect x="30" y="60" width="18" height="18" rx="4" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="56" y="74" font-size="15" fill="#202124">Access-token flow</text>
+  <rect x="230" y="60" width="18" height="18" rx="4" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="256" y="74" font-size="15" fill="#202124">Refresh-token flow</text>
+
+  <defs>
+    <marker id="arrow-normal" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1a73e8"/></marker>
+    <marker id="arrow-refresh" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f9ab00"/></marker>
+  </defs>
+
+  <rect x="137" y="90" width="230" height="46" rx="10" fill="#1a73e8" stroke="#174ea6"/>
+  <text x="252" y="119" text-anchor="middle" font-size="16" font-weight="600" fill="white">User / Browser</text>
+  <line x1="252" y1="136" x2="252" y2="1100" stroke="#dadce0" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <rect x="487" y="90" width="230" height="46" rx="10" fill="#1a73e8" stroke="#174ea6"/>
+  <text x="602" y="119" text-anchor="middle" font-size="16" font-weight="600" fill="white">Angular / .NET Client</text>
+  <line x1="602" y1="136" x2="602" y2="1100" stroke="#dadce0" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <rect x="837" y="90" width="230" height="46" rx="10" fill="#1a73e8" stroke="#174ea6"/>
+  <text x="952" y="119" text-anchor="middle" font-size="16" font-weight="600" fill="white">ms-oidc-mock</text>
+  <line x1="952" y1="136" x2="952" y2="1100" stroke="#dadce0" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <rect x="1187" y="90" width="230" height="46" rx="10" fill="#1a73e8" stroke="#174ea6"/>
+  <text x="1302" y="119" text-anchor="middle" font-size="16" font-weight="600" fill="white">Protected API</text>
+  <line x1="1302" y1="136" x2="1302" y2="1100" stroke="#dadce0" stroke-width="2" stroke-dasharray="6 6"/>
+
+  <line x1="252" y1="180" x2="602" y2="180" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="327" y="147" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="517" y="163" text-anchor="middle" font-size="14" fill="#202124">Open app</text>
+
+  <line x1="602" y1="222" x2="952" y2="222" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="677" y="189" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="867" y="205" text-anchor="middle" font-size="14" fill="#202124">Authorization request /authorize + PKCE</text>
+
+  <line x1="952" y1="264" x2="252" y2="264" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="502" y="231" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="692" y="247" text-anchor="middle" font-size="14" fill="#202124">Login page</text>
+
+  <line x1="252" y1="306" x2="952" y2="306" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="502" y="273" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="692" y="289" text-anchor="middle" font-size="14" fill="#202124">Enter test credentials</text>
+
+  <line x1="952" y1="348" x2="602" y2="348" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="677" y="315" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="867" y="331" text-anchor="middle" font-size="14" fill="#202124">Redirect with authorization code</text>
+
+  <line x1="602" y1="390" x2="952" y2="390" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="357" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="373" text-anchor="middle" font-size="14" fill="#202124">POST /token — code + code_verifier</text>
+
+  <line x1="952" y1="432" x2="602" y2="432" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="399" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="415" text-anchor="middle" font-size="14" fill="#202124">Access token + Refresh token</text>
+
+  <line x1="602" y1="474" x2="1302" y2="474" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="441" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="457" text-anchor="middle" font-size="14" fill="#202124">Call API with access token</text>
+
+  <line x1="1302" y1="516" x2="602" y2="516" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="483" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="499" text-anchor="middle" font-size="14" fill="#202124">200 OK</text>
+
+  <line x1="602" y1="558" x2="1302" y2="558" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="525" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="541" text-anchor="middle" font-size="14" fill="#202124">Call API with expired access token</text>
+
+  <line x1="1302" y1="600" x2="602" y2="600" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="567" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="583" text-anchor="middle" font-size="14" fill="#202124">401 Unauthorized</text>
+
+  <line x1="602" y1="642" x2="952" y2="642" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="609" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="625" text-anchor="middle" font-size="14" fill="#202124">POST /token — grant_type=refresh_token</text>
+
+  <line x1="952" y1="684" x2="602" y2="684" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="651" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="667" text-anchor="middle" font-size="14" fill="#202124">New access token + New refresh token</text>
+
+  <line x1="602" y1="726" x2="1302" y2="726" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="693" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="709" text-anchor="middle" font-size="14" fill="#202124">Retry API call with new access token</text>
+
+  <line x1="1302" y1="768" x2="602" y2="768" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="735" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="751" text-anchor="middle" font-size="14" fill="#202124">200 OK</text>
+
+  <line x1="602" y1="810" x2="1302" y2="810" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="777" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="793" text-anchor="middle" font-size="14" fill="#202124">Call API with expired access token</text>
+
+  <line x1="1302" y1="852" x2="602" y2="852" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="852" y="819" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="1042" y="835" text-anchor="middle" font-size="14" fill="#202124">401 Unauthorized</text>
+
+  <line x1="602" y1="894" x2="952" y2="894" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="861" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="877" text-anchor="middle" font-size="14" fill="#202124">POST /token — grant_type=refresh_token</text>
+
+  <line x1="952" y1="936" x2="602" y2="936" stroke="#f9ab00" stroke-width="3" marker-end="url(#arrow-refresh)"/>
+  <rect x="677" y="903" width="380" height="24" rx="12" fill="#fff8e1" stroke="#f9ab00"/>
+  <text x="867" y="919" text-anchor="middle" font-size="14" fill="#202124">400 invalid_grant — Refresh token expired</text>
+
+  <line x1="602" y1="978" x2="602" y2="978" stroke="#1a73e8" stroke-width="3"/>
+  <rect x="412" y="945" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="602" y="961" text-anchor="middle" font-size="14" fill="#202124">Clear session / tokens</text>
+
+  <line x1="602" y1="1020" x2="952" y2="1020" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="677" y="987" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="867" y="1003" text-anchor="middle" font-size="14" fill="#202124">Start interactive sign-in again</text>
+
+  <line x1="952" y1="1062" x2="252" y2="1062" stroke="#1a73e8" stroke-width="3" marker-end="url(#arrow-normal)"/>
+  <rect x="502" y="1029" width="380" height="24" rx="12" fill="#e3f2fd" stroke="#1a73e8"/>
+  <text x="692" y="1045" text-anchor="middle" font-size="14" fill="#202124">Login page</text>
+</svg>

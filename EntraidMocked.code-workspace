@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Repos/Rwest.Cao.SchedulingAgent"
+		}
+	],
+	"settings": {
+		"xml.downloadExternalResources.enabled": true
+	}
+}
