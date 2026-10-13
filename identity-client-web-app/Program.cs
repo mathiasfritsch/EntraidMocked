@@ -5,18 +5,50 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var azureAd = builder.Configuration.GetSection("AzureAd");
-var tenantId = azureAd["TenantId"];
-var clientId = azureAd["ClientId"]!;
-var scopes = azureAd.GetSection("Scopes").Get<string[]>() ?? [];
+// Provider is selected by configuration only: "EntraId" (default, AzureAd section) or "Keycloak" (Identity section).
+var provider = builder.Configuration["Identity:Provider"] ?? "EntraId";
+string clientId;
+string[] scopes;
+Uri authorizationUrl;
+Uri tokenUrl;
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(azureAd);
+var authBuilder = builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+
+switch (provider)
+{
+    case "EntraId":
+        var azureAd = builder.Configuration.GetSection("AzureAd");
+        var tenantId = azureAd["TenantId"];
+        clientId = azureAd["ClientId"]!;
+        scopes = azureAd.GetSection("Scopes").Get<string[]>() ?? [];
+        authBuilder.AddMicrosoftIdentityWebApi(azureAd);
+        authorizationUrl = new Uri($"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize");
+        tokenUrl = new Uri($"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token");
+        break;
+
+    case "Keycloak":
+        var identity = builder.Configuration.GetSection("Identity");
+        var authority = identity["Authority"]!.TrimEnd('/');
+        clientId = identity["ClientId"]!;
+        scopes = identity.GetSection("Scopes").Get<string[]>() ?? [];
+        var validIssuers = identity.GetSection("ValidIssuers").Get<string[]>() ?? [authority];
+        authBuilder.AddJwtBearer(options =>
+        {
+            options.Authority = authority;
+            options.RequireHttpsMetadata = authority.StartsWith("https://", StringComparison.OrdinalIgnoreCase);
+            options.TokenValidationParameters.ValidAudience = identity["Audience"];
+            options.TokenValidationParameters.ValidIssuers = validIssuers;
+            options.TokenValidationParameters.NameClaimType = "preferred_username";
+        });
+        authorizationUrl = new Uri($"{authority}/protocol/openid-connect/auth");
+        tokenUrl = new Uri($"{authority}/protocol/openid-connect/token");
+        break;
+
+    default:
+        throw new InvalidOperationException($"Unsupported Identity:Provider '{provider}'. Use 'EntraId' or 'Keycloak'.");
+}
+
 builder.Services.AddAuthorization();
-
-var authorizationUrl = new Uri($"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize");
-var tokenUrl = new Uri($"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token");
 
 builder.Services.AddOpenApi(options =>
 {
