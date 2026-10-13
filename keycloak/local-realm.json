@@ -1,7 +1,12 @@
 {
   "realm": "local",
   "enabled": true,
-  "accessTokenLifespan": 300,
+  "accessTokenLifespan": 60,
+  "ssoSessionIdleTimeout": 120,
+  "ssoSessionMaxLifespan": 120,
+  "offlineSessionIdleTimeout": 120,
+  "offlineSessionMaxLifespanEnabled": true,
+  "offlineSessionMaxLifespan": 120,
   "clientScopes": [
     {
       "name": "offline_access",

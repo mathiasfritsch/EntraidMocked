@@ -79,6 +79,16 @@ docker compose up -d
 
 Then clear session storage for `localhost:4200`, or the SPA shows a stale signed-in state.
 
+### Testing refresh-token expiry
+
+`keycloak/local-realm.json` uses short test lifetimes: access token 60 s, SSO session and offline session idle/max 120 s. To simulate the 24-hour Entra refresh-token limit:
+
+1. Sign in at http://localhost:4200.
+2. Wait about 135 s.
+3. Click **Call /me**.
+
+Expected: MSAL's refresh call returns `400 invalid_grant` (`Token is not active`), the silent iframe fallback returns `login_required`, and the SPA redirects to the Keycloak login with `login_hint=alice`. Raise the lifetimes in the realm file for normal use (Keycloak defaults: 5 min access token, 30 min SSO idle, 10 h SSO max, 30 days offline idle).
+
 ## Configuration
 
 Provider settings come from configuration, not code.
@@ -93,5 +103,8 @@ To use Entra ID, copy your real values into `appsettings.json` locally. Never co
 
 - msal-browser 5.x takes `protocolMode` under `system`, not `auth`.
 - MSAL always requests `offline_access`, so the realm defines that scope.
+- msal-browser 5.x relays the silent-iframe response through `broadcastResponseToMainFrame()` (`@azure/msal-browser/redirect-bridge`). Without it the silent fallback fails with `BrowserAuthError: timed_out` and the user is not sent to login. `spa/src/main.ts` calls it when the app loads inside an iframe with a `state=` response, so the normal redirect URI is reused and no extra redirect registration is needed.
+- `spa/src/app/app.ts` treats `timed_out`, `invalid_grant` and `login_required` like `InteractionRequiredAuthError` and starts a login redirect.
+- Verified against Keycloak only. Entra ID behavior is untested here.
 - MSAL.NET has no generic OIDC mode, so it can't target Keycloak.
 - The ports used are 8443 (Keycloak), 5101 (API) and 4200 (SPA). Port 5001 is only the default in the `launchSettings.json` profiles.

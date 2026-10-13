@@ -49,11 +49,18 @@ export class App {
     try {
       return (await this.msal.instance.acquireTokenSilent(request)).accessToken;
     } catch (e) {
-      if (e instanceof InteractionRequiredAuthError) {
+      console.warn('acquireTokenSilent failed', e);
+      if (this.needsLogin(e)) {
         await this.msal.instance.acquireTokenRedirect(request);
       }
       throw e;
     }
+  }
+
+  private needsLogin(e: unknown): boolean {
+    if (e instanceof InteractionRequiredAuthError) return true;
+    const code = (e as { errorCode?: string; error?: string })?.errorCode ?? (e as { error?: string })?.error;
+    return code === 'timed_out' || code === 'invalid_grant' || code === 'login_required';
   }
 
   private initialAccount(): AccountInfo | null {
